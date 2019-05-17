@@ -2,12 +2,21 @@ const Stack = require('./stack');
 const Queue = require('./queue');
 
 function main() {
-  const StarTreck = new Stack;
+  //const StarTreck = new Stack;
 
-  StarTreck.push('Kirk');
-  StarTreck.push('Spock');
-  StarTreck.push('McCoy');
-  StarTreck.push('Scotty');
+  //   StarTreck.push('Kirk');
+  //   StarTreck.push('Spock');
+  //   StarTreck.push('McCoy');
+  //   StarTreck.push('Scotty');
+
+  const disorder = new Stack;
+
+  disorder.push(5);
+  disorder.push(6);
+  disorder.push(3);
+  disorder.push(2);
+
+  sort(disorder);
 }
 
 function peek(stack) {
@@ -24,6 +33,7 @@ function isEmpty(stack) {
 }
 
 function display(stack) {
+  console.log(JSON.stringify(stack.top));
   return stack.top;
 }
 
@@ -102,6 +112,48 @@ function matchParentheses(ex) {
   }
 }
 
-matchParentheses('4 + (3/2) - ((2/1.5) * (10/3))');
+function sort(stack) {
+  const firstStack = stack;
+  const secondStack = new Stack;
+  let temp;
+
+  while (firstStack.top) {
+    temp = firstStack.top.value;
+    firstStack.pop();
+    //console.log('TEMP: ', temp);
+
+    if (!secondStack.top) {
+      console.log(`(secondStack is empty) Pushed ${temp} to second stack`);
+      secondStack.push(temp);
+    }
+
+    // while 5 is less than the top val of second stack
+    while (temp < secondStack.top.value) {
+      // push the top val of second stack back to first stack
+      // pop that val from second stack
+      console.log(`(${temp} is less than ${secondStack.top.value}) Pushed ${secondStack.top.value} from second to first stack`);
+      firstStack.push(secondStack.top.value);
+      secondStack.pop();
+    }
+
+    if (temp > secondStack.top.value) {
+      console.log(`(${temp} is greater than ${secondStack.top.value}) Pushed ${temp} to second stack`);
+      secondStack.push(temp);
+    }
+  }
+
+  while (secondStack.top) {
+    console.log(`Pushed ${secondStack.top.value} back to first stack`);
+    firstStack.push(secondStack.top.value);
+    secondStack.pop();
+  }
+
+//   display(firstStack);
+//   display(secondStack);
+}
+
+
+
+//matchParentheses('4 + (3/2) - ((2/1.5) * (10/3))');
 //isPalindrome('Silas');
-//main();
+main();
