@@ -14,6 +14,8 @@ function main() {
   disorder.push(6);
   disorder.push(3);
   disorder.push(2);
+  disorder.push(10);
+  disorder.push(8);
 
   sort(disorder);
 }
@@ -111,6 +113,10 @@ function matchParentheses(ex) {
   }
 }
 
+// [4, 5]
+// temp: 1
+// [2, 3]
+
 function sort(stack) {
   const firstStack = stack;
   const secondStack = new Stack;
@@ -124,9 +130,9 @@ function sort(stack) {
       console.log(`(secondStack is empty) Pushed ${temp} to second stack`);
       secondStack.push(temp);
     }
-
+    //console.log('SECOND STACK: ', secondStack);
     // while the top val of the first stack is less than the top val of second stack
-    while (temp < secondStack.top.value) {
+    while (secondStack.top !== null && temp < secondStack.top.value) {
       // push the top val of second stack back to first stack
       // pop that val from second stack
       console.log(`(${temp} is less than ${secondStack.top.value}) Pushed ${secondStack.top.value} from second to first stack`);
@@ -135,7 +141,7 @@ function sort(stack) {
     }
 
     // if the first stack's top is greater than the second stack's top
-    if (temp > secondStack.top.value) {
+    if (secondStack.top !== null && temp > secondStack.top.value) {
       // push that val to the second stack
       console.log(`(${temp} is greater than ${secondStack.top.value}) Pushed ${temp} to second stack`);
       secondStack.push(temp);
