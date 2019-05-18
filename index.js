@@ -1,5 +1,4 @@
 const Stack = require('./stack');
-const Queue = require('./queue');
 
 function main() {
   //const StarTreck = new Stack;
@@ -120,14 +119,13 @@ function sort(stack) {
   while (firstStack.top) {
     temp = firstStack.top.value;
     firstStack.pop();
-    //console.log('TEMP: ', temp);
 
     if (!secondStack.top) {
       console.log(`(secondStack is empty) Pushed ${temp} to second stack`);
       secondStack.push(temp);
     }
 
-    // while 5 is less than the top val of second stack
+    // while the top val of the first stack is less than the top val of second stack
     while (temp < secondStack.top.value) {
       // push the top val of second stack back to first stack
       // pop that val from second stack
@@ -136,20 +134,22 @@ function sort(stack) {
       secondStack.pop();
     }
 
+    // if the first stack's top is greater than the second stack's top
     if (temp > secondStack.top.value) {
+      // push that val to the second stack
       console.log(`(${temp} is greater than ${secondStack.top.value}) Pushed ${temp} to second stack`);
       secondStack.push(temp);
     }
   }
 
+  // push all of second stack's vals back into the first stack
   while (secondStack.top) {
     console.log(`Pushed ${secondStack.top.value} back to first stack`);
     firstStack.push(secondStack.top.value);
     secondStack.pop();
   }
 
-//   display(firstStack);
-//   display(secondStack);
+  display(firstStack);
 }
 
 
